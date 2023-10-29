@@ -1,0 +1,20 @@
+{"intents": [
+    {
+        "tag" : "greetings",
+        "patterns": ["hello", "hi", "whats'up", "good morning"],
+        "responses": ["hello!", "Hey", "Bow down"]
+    },
+
+    {
+        "tag" : "name",
+        "patterns" : ["what's our name?", "what do i call you?", "can you tell me your name?"],
+        "responses" : ["i'm a chatbot", "call me pimp vader"]
+    },
+
+    {
+        "tag" : "age",
+        "patterns" : ["what's your age?", "How old are you?"],
+        "responses" : ["old enough", "i'm 5 minute old"]
+    }
+
+]}

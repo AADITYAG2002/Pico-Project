@@ -1,20 +1,18 @@
+{% args ledState, reply %}
 <!DOCTYPE html>
 <html>
 
     <head>
         <meta name="viewport" content="width = device-width, initial-scale=1">
-        <style>
-            .button {background-color: #4CAF50; border: 2px solid #000000; color: white; padding: 5px 3px; text-align: center; text-decoration: none; display: inline-block; font-size: 10px; margin: 4px 2px; cursor: pointer; }
-        </style>
-        <title>Raspberry Pi Pico Remote</title>
+        <title>Raspberry Pi Pico Simple LED</title>
     </head>
 
     <body>
         <center>
             <p>Click the buttons to control the LED</p>
-            <input type="button" class="button" onclick="document.location='/led'" value="LED TOGGLE" />
+            <input type="button" onclick="document.location='/led'" value="LED TOGGLE" />
             <br>
-            <p>The LED is **ledState**</p>
+            <p>The LED is {{ ledState }}</p>
             <br>
             <form action="/user" method="get">
                 <label for="input">Talk:</label>
@@ -22,7 +20,7 @@
                 <input type="submit" value="Submit"/>
             </form>
             <br>
-            <p>Bot said: **reply**</p>
+            <p>Bot said: {{ reply }}</p>
         </center>
     </body>
 

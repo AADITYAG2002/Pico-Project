@@ -1,8 +1,8 @@
 import time
 import network
 
-ssid = 'VISHAL HOME '
-password = '9816034485vg'
+ssid = 'Galaxy A52s 5G 9E5C'
+password = 'alcz6396'
 
 time.sleep(5)
 

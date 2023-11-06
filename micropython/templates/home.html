@@ -1,3 +1,4 @@
+{% args ledState, reply %}
 <!DOCTYPE html>
 <html>
 
@@ -11,15 +12,15 @@
             <p>Click the buttons to control the LED</p>
             <input type="button" onclick="document.location='/led'" value="LED TOGGLE" />
             <br>
-            <p>The LED is **ledState**</p>
+            <p>The LED is {{ ledState }}</p>
             <br>
-            <form action="/user" method="get">
+            <form action="/home" method="post">
                 <label for="input">Talk:</label>
                 <input type="text" id="input" name="input" placeholder="say somthing"/> 
                 <input type="submit" value="Submit"/>
             </form>
             <br>
-            <p>Bot said: **reply**</p>
+            <p>Bot said: {{ reply }}</p>
         </center>
     </body>
 

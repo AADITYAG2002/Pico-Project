@@ -2,18 +2,18 @@ import utime
 import _thread
 import socket
 
+from lib.chatbot import chat
 from machine import Pin
-import uasyncio
 
 led = Pin(15, Pin.OUT)
 onboard = Pin("LED", Pin.OUT, value=0)
 
 auth = False
 led_state = False
-bot_response = ""
+user_input = ""
 
 async def serve_client(reader, writer):
-    global led_state, bot_response, auth
+    global led_state, user_input, auth
 
     raw_request = await reader.read(1024)
     raw_request = raw_request.decode("utf-8")
@@ -30,7 +30,7 @@ async def serve_client(reader, writer):
 
     elif request_url.find("/user") != -1:
         input_list = request_url.split('=')
-        bot_response = input_list[1].replace('+', ' ')
+        user_input = input_list[1].replace('+', ' ')
 
     elif request_url.find("/login") != -1 :
         cred = request_url[7:].split('&')
@@ -52,7 +52,7 @@ async def serve_client(reader, writer):
         with open("home.html") as file:
             html = file.read()
             html = html.replace('**ledState**', led_state_text)
-            html = html.replace('**reply**', bot_response)
+            html = html.replace('**reply**', user_input)
     
     else:
         with open("login.html") as file:
@@ -63,7 +63,7 @@ async def serve_client(reader, writer):
     await writer.wait_closed()
 
 def web_server():
-    global auth, led_state, bot_response
+    global auth, led_state, user_input
 
     addr =  socket.getaddrinfo('0.0.0.0', 80)[0][-1]
     s = socket.socket()
@@ -88,7 +88,7 @@ def web_server():
 
         elif request_url.find("/user") != -1:
             input_list = request_url.split('=')
-            bot_response = input_list[1].replace('+', ' ')
+            user_input = input_list[1].replace('+', ' ')
 
         elif request_url.find("/login") != -1 :
             cred = request_url[7:].split('&')
@@ -107,6 +107,7 @@ def web_server():
             led_state_text = "ON"
 
         if auth:
+            bot_response = chat(user_input)
             with open("home.html") as file:
                 html = file.read()
                 html = html.replace('**ledState**', led_state_text)
@@ -121,8 +122,8 @@ def web_server():
 
 def main_loop():
     while True:
-        onboard.toggle()
-        print("heartbeat")
+        onboard.value(led_state)
+        print("led_state : {}".format(led_state))
         utime.sleep(1)
 
 

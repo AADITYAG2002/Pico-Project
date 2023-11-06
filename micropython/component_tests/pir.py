@@ -1,15 +1,10 @@
-from machine import Pin, PWM
+from machine import Pin
 from utime import sleep
 
-pwm = PWM(Pin(0))
-
-pwm.freq(1000)
+pir = Pin(0, Pin.IN, Pin.PULL_UP)
+led = Pin('LED', Pin.OUT)
+sleep(3)
 
 while True:
-    for duty in range(65025):
-        print(pwm)
-        pwm.duty_u16(duty)
-        sleep(0.0001)
-    for duty in range(65025, 0, -1):
-        pwm.duty_u16(duty)
-        sleep(0.0001)
+    print("pir value : {}".format(pir.value()))
+    sleep(0.5)
